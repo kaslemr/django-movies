@@ -33,3 +33,20 @@ def load_data_raters(apps, schema_editor):
         occupation = row.occupation
         zip_code = row.zip_code
         Rater.objects.create(id=user_id, age=age, gender=gender, occupation=occupation, zip_code=zip_code)
+
+def load_data_ratings(apps, schema_editor):
+    df = pd.read_csv('movies1/u.data', sep="\t", header=-1)
+    df = df.rename(columns={0:"user_id", 1:"movie_id",
+                        2:"rating", 3:"timestamp"})
+    df = df[["user_id", "movie_id", 'rating']]
+    df = df[df.movie_id != 267]
+
+    Rating = apps.get_model("movies1", "Rating")
+    Movie = apps.get_model("movies1", "Movie")
+    Rater = apps.get_model("movies1", "Rater")
+
+    for index, row in df.iterrows():
+        rater = row.user_id
+        movie = row.movie_id
+        rating = row.rating
+        Rating.objects.create(rater=Rater.objects.get(id=rater), movie=Movie.objects.get(id=movie), rating=rating)
