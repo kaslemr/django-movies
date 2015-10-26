@@ -26,3 +26,8 @@ class Rating(models.Model):
     rater = models.ForeignKey(Rater)
     movie = models.ForeignKey(Movie)
     rating = models.IntegerField()
+
+    def __int__(self):
+        return "{}".format(self.Rater.id)
+
+
