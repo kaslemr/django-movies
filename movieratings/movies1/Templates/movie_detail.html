@@ -6,11 +6,16 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ object.movie }}</h3>
+                <h3 class="panel-title">{{ object }}</h3>
+            </div>
+            <div>
+                </br>
+                Average Rating:
             </div>
             <div class="panel-body">
-                <h1>{{ object.movie }}</h1>
-                <h1>{{ object.movie }}</h1>
+                {% for rating in object.rating_set.all %}
+                    <a href="{% url 'user_detail' rating.rater.id %}">{{ rating.rater }} - Rating: {{ rating.rating }} </br>
+                {% endfor %}
             </div>
         </div>
     </div>
