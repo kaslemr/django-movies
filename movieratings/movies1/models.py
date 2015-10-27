@@ -20,14 +20,20 @@ class Rater(models.Model):
     zip_code = models.CharField(max_length=10)
 
     def __str__(self):
-        return "{}, {}, {}, {}".format(self.gender, self.age, self. occupation, self.zip_code)
+        return "Rater ID: {}".format(self.id)
+
+    @property
+    def raters(self):
+        return self.Rating.rater_set.all().count()
 
 class Rating(models.Model):
     rater = models.ForeignKey(Rater)
     movie = models.ForeignKey(Movie)
     rating = models.IntegerField()
 
-    def __int__(self):
-        return "{}".format(self.Rater.id)
+    def __str__(self):
+        return "{}".format(self.rater.id)
+
+#rater.rating_set.all()
 
 

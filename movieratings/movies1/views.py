@@ -19,3 +19,12 @@ class MovieDetail(DetailView):
     model = Movie
     template_name = "movie_detail.html"
 
+class UserList(ListView):
+    model = Rater
+    template_name = "user_list.html"
+
+class UserDetail(DetailView):
+    model = Rater
+    template_name = "user_detail.html"
+
+
